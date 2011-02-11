@@ -7,6 +7,18 @@ class Common extends Controller {
 		$this->load->library("session");
 	}
 	
+	function is_admin()
+	{
+		if($this->session->userdata("role")==1)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
 	function _set_view_dir($versi=null)
 	{
 		if($versi==null)

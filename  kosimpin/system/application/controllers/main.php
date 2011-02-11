@@ -7,6 +7,7 @@ class main extends Common {
 		parent::__construct();
 		$this->load->model("tabungan");
 		$this->load->model("user");
+		$this->load->model("anggota");
 	}
 	
 		
@@ -36,6 +37,7 @@ class main extends Common {
 	function login()
 	{
 		$exist = $this->user->is_exists($this->input->post("user"),$this->input->post("password"));
+		$member = $this->anggota->is_exists($this->input->post("user"),$this->input->post("password"));
 		if($exist)
 		{
 			$data_user = $this->user->get_user($this->input->post("user"),$this->input->post("password"));
@@ -43,11 +45,24 @@ class main extends Common {
 							   'username'  => $this->input->post("user"),
 							   'logged_in' => TRUE,
 							   'id_user' => $data_user->id,
-							   'level' => 0
+							   'role' => 1
 						   );
 
 			$this->session->set_userdata($newdata);		
 			redirect("main/home",null);
+		}
+		elseif($member)
+		{
+			$data_user = $this->anggota->get_user($this->input->post("user"),$this->input->post("password"));
+			$newdata = array(
+							   'username'  => $this->input->post("user"),
+							   'logged_in' => TRUE,
+							   'id_user' => $data_user->id,
+							   'role' => 2
+						   );
+
+			$this->session->set_userdata($newdata);		
+			redirect("main/home",null);			
 		}
 		else
 		{
@@ -60,7 +75,20 @@ class main extends Common {
 		if($this->session->userdata('logged_in')==true && strlen($this->session->userdata('username'))>0)
 		{
 			$data = array();
-			$this->_load_view('home',$data);	
+			if($this->session->userdata("role")==1)
+			{
+				//admin
+				$this->_load_view('home',$data);	
+			}
+			elseif($this->session->userdata("role")==2)
+			{
+				$this->_load_view('home_anggota',$data);
+			}
+			else
+			{
+				$this->session->sess_destroy();
+				redirect("main/index/0",null);
+			}
 		}
 		else
 		{

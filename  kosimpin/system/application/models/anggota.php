@@ -44,5 +44,36 @@ class Anggota extends Base_Model {
 		return $hasil;
 	}
 	
+    function is_exists($user,$password)
+    {
+		$this->db->select("nomor_anggota,password")
+				 ->from("anggota")
+			 ->where("nomor_anggota","$user")
+			 ->where("password",md5($password));
+		$rec = $this->db->get();
+		if($rec->num_rows()>0)
+		{
+				return TRUE;
+		}
+			
+		return FALSE;
+    }
+	
+	function get_user($user,$password)
+	{
+		$this->db->select("id,nomor_anggota as 'user_name',password")
+				 ->from("anggota")
+			 ->where("nomor_anggota","$user")
+			 ->where("password",md5($password));
+		$rec = $this->db->get();
+		if($rec->num_rows()>0)
+		{
+			$result = $rec->result();
+			return $result[0];
+		}
+			
+		return FALSE;	
+	}
+	
 }
 ?>

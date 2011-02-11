@@ -78,6 +78,8 @@ class cpinjaman extends Common {
 	
 	function bayar($id_pinjaman=null,$id_anggota=null)
 	{
+		if($this->is_admin)
+		{
 		$this->load->helper(array('form', 'url','tanggal'));
 		$this->load->library('form_validation');
 		
