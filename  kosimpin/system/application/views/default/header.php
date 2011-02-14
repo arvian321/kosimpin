@@ -9,6 +9,7 @@
 <a href="<?php echo base_url();?>/index.php/main/home">Awal</a>&nbsp;|
 <a href="<?php echo base_url();?>/index.php/ctabungan">Tabungan</a>&nbsp;|
 <a href="<?php echo base_url();?>/index.php/cpinjaman">Pinjaman</a>&nbsp;
+<B><?php echo ($this->session->userdata("role")==1?"Admin":"Anggota"); ?></B>&nbsp;
 <h1><?php echo $this->config->item('nama_koperasi'); ?></h1>
 </body>
 </html>

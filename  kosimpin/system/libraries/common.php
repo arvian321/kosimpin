@@ -19,6 +19,14 @@ class Common extends Controller {
 		}
 	}
 	
+	function is_admin_session($redirect_to)
+	{
+		if($this->session->userdata("role")!=1)
+		{
+			redirect("$redirect_to",null);
+		}
+	}	
+	
 	function _set_view_dir($versi=null)
 	{
 		if($versi==null)

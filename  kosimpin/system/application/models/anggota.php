@@ -8,6 +8,8 @@ class Anggota extends Base_Model {
     {
         parent::__construct();
         $this->init("anggota","id");
+		$this->load->model("pinjaman");
+		$this->load->model("tabungan");
     }
 
     /**
@@ -73,6 +75,18 @@ class Anggota extends Base_Model {
 		}
 			
 		return FALSE;	
+	}
+	
+	function get_total_tabungan($id_anggota,$type=null)
+	{
+		$saldo = $this->tabungan->get_saldo_per_anggota($type,$id_anggota);
+		return $saldo;
+	}
+	
+	function get_total_pinjaman($id_anggota)
+	{
+		$saldo = $this->pinjaman->get_saldo_per_anggota($id_anggota);
+		return $saldo;
 	}
 	
 }

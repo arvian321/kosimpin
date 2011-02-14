@@ -58,7 +58,8 @@ class main extends Common {
 							   'username'  => $this->input->post("user"),
 							   'logged_in' => TRUE,
 							   'id_user' => $data_user->id,
-							   'role' => 2
+							   'role' => 2,
+							   'id_anggota' =>$data_user->id
 						   );
 
 			$this->session->set_userdata($newdata);		
@@ -82,6 +83,12 @@ class main extends Common {
 			}
 			elseif($this->session->userdata("role")==2)
 			{
+				$saldo_tabungan = $this->anggota->get_total_tabungan($this->session->userdata("id_anggota"));
+				$saldo_pinjaman = $this->anggota->get_total_pinjaman($this->session->userdata("id_anggota"));
+				
+				$data["saldo_tabungan"] = $saldo_tabungan;
+				$data["saldo_pinjaman"] = $saldo_pinjaman;
+				
 				$this->_load_view('home_anggota',$data);
 			}
 			else

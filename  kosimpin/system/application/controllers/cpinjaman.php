@@ -14,6 +14,8 @@ class cpinjaman extends Common {
 		$this->pinjaman->init_glaccount("001","003","004");
 	}
 
+
+	
 	/**
 	* Halaman Utama. Menampilkan pinjaman total per anggota.
 	*
@@ -41,6 +43,8 @@ class cpinjaman extends Common {
 		}
 		else
 		{
+			$this->is_admin_session("cpinjaman/index"); //khusus admin
+			
 			//pinjaman baru
 			//tanggal
 			$tanggal = $this->input->post("tahun")."-".$this->input->post("bulan")."-".$this->input->post("tanggal");
@@ -62,6 +66,8 @@ class cpinjaman extends Common {
 	*/
 	function detail($id_anggota=null)
 	{
+		$this->is_admin_session("cpinjaman/index"); //if not admin redirect to index
+		
 		if($id_anggota!=null)
 		{
 			$data = array();
@@ -73,13 +79,12 @@ class cpinjaman extends Common {
 		{
 			redirect("cpinjaman/index",null);
 		}
-		
 	}
 	
 	function bayar($id_pinjaman=null,$id_anggota=null)
 	{
-		if($this->is_admin)
-		{
+		$this->is_admin_session("cpinjaman/index");
+		
 		$this->load->helper(array('form', 'url','tanggal'));
 		$this->load->library('form_validation');
 		
@@ -124,13 +129,7 @@ class cpinjaman extends Common {
 				$this->pinjaman->bayar_pinjaman($data);
 				redirect("cpinjaman/bayar/$id_pinjaman/$id_anggota");
 			}
-		}
-		else
-		{
-			redirect("cpinjaman/index",null);
-		}
-		
-	}
+		}		
 	}
 
 }	
