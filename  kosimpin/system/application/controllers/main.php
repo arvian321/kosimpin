@@ -84,9 +84,17 @@ class main extends Common {
 			elseif($this->session->userdata("role")==2)
 			{
 				$saldo_tabungan = $this->anggota->get_total_tabungan($this->session->userdata("id_anggota"));
+				$saldo_wajib = $this->anggota->get_total_tabungan($this->session->userdata("id_anggota"),2);
+				$saldo_sukarela = $this->anggota->get_total_tabungan($this->session->userdata("id_anggota"),1);
+				$saldo_pokok = $this->anggota->get_total_tabungan($this->session->userdata("id_anggota"),3);
+				
 				$saldo_pinjaman = $this->anggota->get_total_pinjaman($this->session->userdata("id_anggota"));
 				
 				$data["saldo_tabungan"] = $saldo_tabungan;
+				$data["saldo_wajib"] = $saldo_wajib;
+				$data["saldo_sukarela"] = $saldo_sukarela;
+				$data["saldo_pokok"] = $saldo_pokok;
+				
 				$data["saldo_pinjaman"] = $saldo_pinjaman;
 				
 				$this->_load_view('home_anggota',$data);
@@ -111,6 +119,7 @@ class main extends Common {
 					   );
 
 		$this->session->set_userdata($newdata);			
+		$this->session->sess_destroy();
 		
 		if($nextpage==null)
 		{
