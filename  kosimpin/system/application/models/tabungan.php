@@ -9,7 +9,7 @@ class Tabungan extends Base_model {
     {
         parent::__construct();
         $this->init("tabungan", "id");
-		$this->load->model("gl/Gledger");
+		$this->load->model("gl/GLedger");
     }
 	
 	/**
@@ -182,7 +182,7 @@ class Tabungan extends Base_model {
 		$tabungan->tgl_transaksi = $data->tgl_transaksi;
 		$tabungan->nomor_dokumen = "";
 		
-		$result = $this->Gledger->write_jurnal($kas,$tabungan);		
+		$result = $this->GLedger->write_jurnal($kas,$tabungan);		
 	}
 
 

@@ -1,5 +1,8 @@
+<!doctype html>
 <html>
 <head>
+<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="MobileOptimized" content="320"/> 
 <title><?php echo $this->config->item('nama_koperasi'); ?> - <?php echo $this->config->item('alamat'); ?></title>
 <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>/assets/css/default.css"/>
 <link href="<?php echo base_url();?>/assets/images/kosim.png" rel='shortcut icon'/>

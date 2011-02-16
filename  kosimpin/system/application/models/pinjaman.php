@@ -10,7 +10,7 @@ class Pinjaman extends Base_Model {
     {
         parent::__construct();
         $this->init("pinjaman","id");
-		$this->load->model("gl/Gledger");	
+		$this->load->model("gl/GLedger");	
     }
 		
 	/**
@@ -123,7 +123,7 @@ class Pinjaman extends Base_Model {
 					$pinjaman->tgl_transaksi = $data->tgl_transaksi;
 					$pinjaman->nomor_dokumen = "";	
 
-					$result = $this->Gledger->write_jurnal($kas,$pinjaman);			
+					$result = $this->GLedger->write_jurnal($kas,$pinjaman);			
 				}
 				
 				return FALSE;
@@ -248,7 +248,7 @@ class Pinjaman extends Base_Model {
 		
 		//tidak melihat nilai balance karena 
 		//ada value jasa
-		$result = $this->Gledger->write_jurnal($tpinjaman,$kas,false);		
+		$result = $this->GLedger->write_jurnal($tpinjaman,$kas,false);		
 	}	
 	
 }

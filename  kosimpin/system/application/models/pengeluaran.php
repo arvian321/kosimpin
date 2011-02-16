@@ -8,7 +8,7 @@ class Pengeluaran extends Base_model
     {
         parent::__construct();
         $this->init("pengeluaran", "id");
-		$this->load->model("gl/Gledger");
+		$this->load->model("gl/GLedger");
     }
 	
 	function init_glaccount($cash_account,$tabungan_account)
