@@ -31,7 +31,7 @@ include(APPPATH."views/default/header.php");
 		<td align='right'><?php echo number_format($rp->tpinjaman,","); ?></td>		
 		<td align='right'><?php echo number_format($rp->tjasa,","); ?></td>
 		<td align='right'><?php echo number_format($rp->tsaldo,","); ?></a></td>
-		<td align='center'><a href='<?php echo base_url()?>index.php/cpinjaman/bayar/<?php echo $rp->id."/".$rp->id_anggota; ?>'>Bayar</a></td>
+		<td align='center'><a href='<?php echo site_url()?>/cpinjaman/bayar/<?php echo $rp->id."/".$rp->id_anggota; ?>'>Bayar</a></td>
 	</tr>
 	
 	<?php

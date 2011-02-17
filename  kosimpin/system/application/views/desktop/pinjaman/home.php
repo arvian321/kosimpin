@@ -27,7 +27,7 @@ include(APPPATH."views/default/header.php");
 
 	<tr>
 		<td align="center"><?php echo $c; ?>.</td>
-		<td><a href='<?php echo base_url()?>index.php/canggota/rekap/<?php echo $pinjaman->id_anggota; ?>'><?php echo $pinjaman->nama; ?></a></td>
+		<td><a href='<?php echo site_url()?>/canggota/rekap/<?php echo $pinjaman->id_anggota; ?>'><?php echo $pinjaman->nama; ?></a></td>
 		<td align='right'><?php echo number_format($pinjaman->tpinjaman,","); ?></td>
 		<td align='right'><?php echo number_format($pinjaman->tsaldo,","); ?></td>
 		<td align='right'><?php echo number_format($pinjaman->tjasa,","); ?></td>

@@ -8,7 +8,7 @@
 
 <h1><?php echo $this->config->item('nama_koperasi'); ?></h1>
 Selamat datang di <?php echo $this->config->item('nama_koperasi'); ?><br/><br/>
-<form name="form1" method="post" action="<?php echo base_url();?>/index.php/main/login">
+<form name="form1" method="post" action="<?php echo site_url();?>/main/login">
   <table width="300" border="0">
     <tr>
       <td width="111">User</td>
@@ -30,7 +30,7 @@ Selamat datang di <?php echo $this->config->item('nama_koperasi'); ?><br/><br/>
 <center>
 <small>
 Lihat dalam versi : <br>
-Mobile Web | <a href='<?php echo base_url();?>index.php/main/index/0/full'>Desktop Web</a>
+Mobile Web | <a href='<?php echo site_url();?>/main/index/0/full'>Desktop Web</a>
 </small>
 </center> 
 <?php

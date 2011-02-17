@@ -19,12 +19,12 @@ include(APPPATH."views/default/header.php");
   ?>
     <tr>
         <td><?php echo $c; ?></td>
-        <td><a href='<?php echo base_url();?>/index.php/canggota/rekap/<?php echo $saldo->id_anggota; ?>'>
+        <td><a href='<?php echo site_url();?>/canggota/rekap/<?php echo $saldo->id_anggota; ?>'>
             <?php echo $saldo->nama; ?>
             </a>
         </td>
         <td align="right">
-            <a href='<?php echo base_url();?>/index.php/ctabungan/detail_anggota/<?php echo $saldo->id_anggota."/".$id_jenis; ?>'>
+            <a href='<?php echo site_url();?>/ctabungan/detail_anggota/<?php echo $saldo->id_anggota."/".$id_jenis; ?>'>
             <?php echo number_format($saldo->saldo,"."); ?>
             </a>
         </td>

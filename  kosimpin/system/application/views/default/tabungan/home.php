@@ -3,7 +3,7 @@ include(APPPATH."views/default/header.php");
 ?>
 <body>
     <b>Tabungan</b><br>
-	Input Data : <a href='<?php echo base_url()?>index.php/ctabungan/form/1'>Sukarela</a> | <a href='<?php echo base_url()?>index.php/ctabungan/form/3'>Wajib</a> | <a href='<?php echo base_url()?>index.php/ctabungan/form/2'>Pokok</a><br><br>
+	Input Data : <a href='<?php echo site_url()?>/ctabungan/form/1'>Sukarela</a> | <a href='<?php echo site_url()?>/ctabungan/form/3'>Wajib</a> | <a href='<?php echo site_url()?>/ctabungan/form/2'>Pokok</a><br><br>
 Klik pada jumlah untuk melihat rincian tabungan
 per anggota.<br><br>
 
@@ -26,7 +26,7 @@ per anggota.<br><br>
             <?php echo $saldo->jenis_tabungan; ?>            
         </td>
         <td align="right">
-            <a href='<?php echo base_url();?>/index.php/ctabungan/detail/<?php echo $saldo->id_jenis_tabungan; ?>'>
+            <a href='<?php echo site_url();?>/ctabungan/detail/<?php echo $saldo->id_jenis_tabungan; ?>'>
             <?php echo number_format($saldo->saldo,"."); ?>
             </a>
         </td>
@@ -37,7 +37,7 @@ per anggota.<br><br>
   ?>
     <tr style="font-weight:bold;background-color:#EEEEEE;">
         <td></td>
-        <td>Total</td><td align="right"> <a href='<?php echo base_url();?>/index.php/ctabungan/detail/'><?php echo number_format($total_saldo,"."); ?></a></td></tr>
+        <td>Total</td><td align="right"> <a href='<?php echo site_url();?>/ctabungan/detail/'><?php echo number_format($total_saldo,"."); ?></a></td></tr>
   <?php
   }
 ?>
