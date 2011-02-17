@@ -40,7 +40,7 @@
  *			echo $this->error->get_last_error_message();
  *		}
  */
-class ScError
+class scerror
 {
 	static $REQUEST_OK = 1;
 	static $ERROR_UNKNOWN = 11;
@@ -51,7 +51,7 @@ class ScError
 	
 	public $error_codes;
 	
-	function ScError() 
+	function scerror() 
 	{
 		$this->error_codes = array();
 		$this->set_error_messages();
