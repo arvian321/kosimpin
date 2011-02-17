@@ -1,5 +1,5 @@
 <?php
-class GLedger extends Base_model
+class gledger extends Base_model
 {
 	function __construct()
 	{

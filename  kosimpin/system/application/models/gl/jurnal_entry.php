@@ -1,5 +1,5 @@
 <?php
-class Jurnal_entry 
+class jurnal_entry 
 {
 	var $nomor_account;
 	var $debit_value;
