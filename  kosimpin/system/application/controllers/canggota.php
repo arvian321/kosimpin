@@ -8,7 +8,9 @@ class canggota extends Common {
 		$this->load->model("anggota");
 		$this->load->model("pinjaman");
         $this->load->model("tabungan");
-		 $this->load->model("jenis_tabungan");
+		$this->load->model("jenis_tabungan");
+		
+		$this->load->helper(array('form', 'url','tanggal'));
 	}
 
 	/**
@@ -68,6 +70,20 @@ class canggota extends Common {
 		$data["data_pinjaman"] = $this->pinjaman->get_saldo_per_pinjaman($id_anggota);	
 		$data["nama_anggota"] = $this->anggota->get_name($id_anggota); 
 		$this->_load_view('pinjaman/anggota_per_anggota',$data);	
+	}
+	
+	function simpan()
+	{
+		$nama = $this->input->post("nama");
+		$tanggal = $this->input->post("tahun")."-".$this->input->post("bulan")."-".$this->input->post("tanggal");
+		$data = array("nama"=>$nama,"tglmasuk"=>$tanggal);
+		
+		$this->anggota->save($data);
+	}
+	function add()
+	{
+		$data = array();
+		$this->_load_view('anggota/add',$data);
 	}
 	
 	function detpinjaman($id=null)

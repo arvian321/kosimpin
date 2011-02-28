@@ -11,7 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://localhost/root/kosimpin/";
+$config['base_url']	= BASE_URL;
 
 /*
 |--------------------------------------------------------------------------
