@@ -4,9 +4,8 @@ class User extends Base_Model {
 
     function __construct()
     {
-        parent::Model();
         parent::__construct();
-        $this->init("pinjaman","id");
+        $this->init("user","id","user_name");
     }
 	
     function is_exists($user,$password)

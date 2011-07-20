@@ -7,7 +7,7 @@ class Pengeluaran extends Base_model
     function __construct()
     {
         parent::__construct();
-        $this->init("pengeluaran", "id");
+        $this->init("pengeluaran", "id","keterangan");
 		$this->load->model("gl/GLedger");
     }
 	

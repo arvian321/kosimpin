@@ -6,6 +6,7 @@ class ctabungan extends Common {
     {
         parent::__construct();
 		$this->load->model("tabungan");
+		$this->load->model("summary_tabungan","st");		
         $this->load->model("jenis_tabungan");
 		$this->load->model("user");
 		$this->load->model("anggota");
@@ -109,16 +110,33 @@ class ctabungan extends Common {
      * melihat detail saldo per anggota
      * @param int $id_anggota
      */
-    function detail($id_jenis=null)
+    function detail($id_jenis=null,$offset=null,$field=null,$value=null)
     {
+		$offset = $this->uri->segment(4); 
+		$limit=10;
+		
+		if($field!=null & $value!=null){
+			$filter = " $field like '%$value%' and id_jenis_tabungan=$id_jenis";
+		}else{
+			$filter = array("id_jenis_tabungan"=>$id_jenis);
+		}
+		
+        $config['base_url'] = site_url() . "/ctabungan/detail/$id_jenis";
+        $config['total_rows'] = $this->st->get_count($filter);
+        $config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		
         $data = array();
-        $total_saldo = $this->tabungan->get_saldo_per_anggota($id_jenis);
+        $total_saldo = $this->st->get_paged($config['per_page'],$offset,$filter);
         $data["saldo_tabungan"] = $total_saldo;
 
+        $this->pagination->initialize($config);
+        $paginator=$this->pagination->create_links();
+		
         if($id_jenis!=null)
         {
-            $result = $this->jenis_tabungan->get_by_id($id_jenis);
-            $jenis = $result[0];
+            $result = $this->jenis_tabungan->get_title($id_jenis);
+            $jenis = $result;
         }
         else
         {
@@ -126,20 +144,46 @@ class ctabungan extends Common {
             $jenis = (Object) $jdata;
         }
         
+		$data['total_page'] = $paginator;
         $data["jenis_tabungan"] = $jenis;
 		$data["id_jenis"] = $id_jenis;
 		$this->_load_view('tabungan/saldo_per_anggota',$data);
 
     }
 
-    function detail_anggota($id_anggota,$jenis=null)
+    function detail_anggota($id_anggota,$jenis=null,$offset=null,$field_search=null,$value_search=null)
     {
-		$trans = $this->tabungan->get_detail_per_anggota($id_anggota,$jenis);	
+		
+		$offset = $this->uri->segment(5); 
+		$limit=10;
+		$id_jenis = $jenis;
+		
+		if($field_search!=null && $value_search!=null)
+		{
+			$filter = " $field_search like '%$value_search%'";
+			if($jenis!=null){
+				$filter.=" and id_jenis_tabungan=$jenis and id_anggota=$id_anggota";
+			}
+		}else{
+			if($jenis!=null){
+				$filter=array("id_jenis_tabungan"=>$jenis,"id_anggota"=>$id_anggota);
+			}		
+		}
+		
+        $config['base_url'] = site_url()."/ctabungan/detail_anggota/$id_anggota/$jenis" ;
+        $config['total_rows'] = $this->tabungan->get_count($filter);
+        $config['per_page'] = $limit;
+		$config['uri_segment'] = 5;		
+
+		$trans = $this->tabungan->get_paged($config['per_page'],$offset,$filter);
+		
+        $this->pagination->initialize($config);
+        $paginator=$this->pagination->create_links();
 		
         if($jenis!=null)
         {
             $result = $this->jenis_tabungan->get_by_id($jenis);
-            $jenis = $result[0];
+            $jenis = $result;
         }
         else
         {
@@ -147,6 +191,9 @@ class ctabungan extends Common {
             $jenis = (Object) $jdata;
         }
 		
+		$data["total_saldo"] = $this->tabungan->get_saldo_per_anggota($id_jenis,$id_anggota);
+		
+		$data['total_page'] = $paginator;
         $data["detail_transaksi"] = $trans;
 		$data["jenis_tabungan"] = $jenis;
 		$data["id_jenis"] = $jenis; 

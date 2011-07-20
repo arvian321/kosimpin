@@ -8,7 +8,7 @@ class Tabungan extends Base_model {
     function __construct()
     {
         parent::__construct();
-        $this->init("tabungan", "id");
+        $this->init("tabungan", "id","catatan");
 		$this->load->model("gl/GLedger");
     }
 	
@@ -91,27 +91,9 @@ class Tabungan extends Base_model {
         
         if($rec->num_rows()>0)
         {
-            return $rec->result();
+            return $rec->row();
         }
-		/**
-		paging
-		$config['base_url'] 	= base_url().'index.php/tabungan/artikel/';
-		$config['total_rows']	= $query->num_rows();
-		$config['per_page'] 	= '30';
-		$num			= $config['per_page'];
-		$offset			= $this->uri->segment(3);
-		$offset 		= ( ! is_numeric($offset) || $offset < 1) ? 0 : $offset;
 		
-		if(empty($offset))
-		{
-			$offset=0;
-		}
-		
-		$this->pagination->initialize($config);		
-		
-		$data['query']		= $this->db->query($string_query." limit $offset,$num");	
-		$data['base']		= $this->config->item('base_url');		
-		*/
         return FALSE;
     }
 

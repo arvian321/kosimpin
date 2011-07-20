@@ -9,7 +9,7 @@ class Pinjaman extends Base_Model {
     function __construct()
     {
         parent::__construct();
-        $this->init("pinjaman","id");
+        $this->init("pinjaman","id","catatan");
 		$this->load->model("gl/GLedger");	
     }
 		

@@ -3,7 +3,25 @@ include(APPPATH."views/default/header.php");
 ?>
 <body>
 <b>Tabungan Rinci</b><br><br>
-<?php echo "S.".$jenis_tabungan->jenis_tabungan; ?> >> <?php echo $nama_anggota; ?>
+<?php echo "Halaman : ".$total_page; ?><br/><br/>
+
+<table width='150px'>
+<tr>
+	<td>Tabungan</td>
+	<td><?php echo $jenis_tabungan->jenis_tabungan; ?></td>
+</tr>
+<tr>
+	<td>Nama</td>
+	<td><?php echo $nama_anggota; ?></td>
+</tr>
+<tr>
+	<td>Saldo</td>
+	<td><B><?php echo number_format($total_saldo->saldo) ; ?></B></td>
+</tr>
+</table>
+
+<br>
+
 <table width="300px" cellpadding='2px'>
  <tr style="font-weight:bold;background-color:#EEEEEE;">
      <td align='center'>No.</td>
@@ -28,7 +46,7 @@ include(APPPATH."views/default/header.php");
 	}
   ?>
     <tr bgcolor="<?php echo $background_color; ?>">
-        <td width='20%'><?php echo $c; ?></td>
+        <td width='20%' align='center'><?php echo $c; ?></td>
         <td width='30%'><?php echo date("d-m-Y",strtotime($trans->tgl_transaksi)); ?></td>
         <td align="right" width='20%'><?php echo number_format($trans->jumlah_in,"."); ?></td>
         <td align="right" width='30%'><?php echo number_format($trans->jumlah_out,"."); ?>

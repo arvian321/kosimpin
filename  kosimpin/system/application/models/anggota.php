@@ -7,7 +7,7 @@ class Anggota extends Base_Model {
     function __construct()
     {
         parent::__construct();
-        $this->init("anggota","id");
+        $this->init("anggota","id","nomor_anggota");
 		$this->load->model("pinjaman");
 		$this->load->model("tabungan");
     }
@@ -25,7 +25,7 @@ class Anggota extends Base_Model {
 		$rec = $this->get_by_id($id);
 		if($rec)
 		{
-			return $rec[0]->nama;
+			return $rec->nama;
 		}
 		
 		return FALSE;
