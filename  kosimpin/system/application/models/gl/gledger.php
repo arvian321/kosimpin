@@ -143,7 +143,7 @@ class gledger extends Base_model
 		
 		if($rec)
 		{
-			return $rec[0]->saldo;
+			return $rec->saldo;
 		}
 		
 		$this->error->set_error(503);

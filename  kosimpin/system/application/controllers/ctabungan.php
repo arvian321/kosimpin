@@ -6,7 +6,8 @@ class ctabungan extends Common {
     {
         parent::__construct();
 		$this->load->model("tabungan");
-		$this->load->model("summary_tabungan","st");		
+		$this->load->model("summary_tabungan","st");	
+		$this->load->model("summary_tabungan_total","stt");		
         $this->load->model("jenis_tabungan");
 		$this->load->model("user");
 		$this->load->model("anggota");
@@ -110,15 +111,24 @@ class ctabungan extends Common {
      * melihat detail saldo per anggota
      * @param int $id_anggota
      */
-    function detail($id_jenis=null,$offset=null,$field=null,$value=null)
+    function detail($id_jenis=0,$offset=null,$field=null,$value=null)
     {
+		if($id_jenis==null)$id_jenis=1;
+		
 		$offset = $this->uri->segment(4); 
 		$limit=10;
 		
-		if($field!=null & $value!=null){
-			$filter = " $field like '%$value%' and id_jenis_tabungan=$id_jenis";
-		}else{
-			$filter = array("id_jenis_tabungan"=>$id_jenis);
+		if($id_jenis==0)
+		{
+			$filter = array();
+		}
+		else
+		{
+			if($field!=null & $value!=null){
+				$filter = " $field like '%$value%' and id_jenis_tabungan=$id_jenis";
+			}else{
+				$filter = array("id_jenis_tabungan"=>$id_jenis);
+			}
 		}
 		
         $config['base_url'] = site_url() . "/ctabungan/detail/$id_jenis";
@@ -127,21 +137,24 @@ class ctabungan extends Common {
 		$config['uri_segment'] = 4;
 		
         $data = array();
-        $total_saldo = $this->st->get_paged($config['per_page'],$offset,$filter);
+		if($id_jenis==0){
+			$total_saldo = $this->stt->get_paged($config['per_page'],$offset,$filter);
+		}else{
+			$total_saldo = $this->st->get_paged($config['per_page'],$offset,$filter);
+		}
         $data["saldo_tabungan"] = $total_saldo;
 
         $this->pagination->initialize($config);
         $paginator=$this->pagination->create_links();
 		
-        if($id_jenis!=null)
+        if($id_jenis!=null && $id_jenis!=0)
         {
             $result = $this->jenis_tabungan->get_title($id_jenis);
             $jenis = $result;
         }
         else
         {
-            $jdata = array("jenis_tabungan"=>"Total Simpanan");
-            $jenis = (Object) $jdata;
+            $jenis = "Total Simpanan";
         }
         
 		$data['total_page'] = $paginator;
@@ -151,26 +164,26 @@ class ctabungan extends Common {
 
     }
 
-    function detail_anggota($id_anggota,$jenis=null,$offset=null,$field_search=null,$value_search=null)
+    function detail_anggota($id_anggota,$id_jenis=null,$offset=null,$field_search=null,$value_search=null)
     {
 		
 		$offset = $this->uri->segment(5); 
 		$limit=10;
-		$id_jenis = $jenis;
 		
+		$filter = array();
 		if($field_search!=null && $value_search!=null)
 		{
 			$filter = " $field_search like '%$value_search%'";
-			if($jenis!=null){
-				$filter.=" and id_jenis_tabungan=$jenis and id_anggota=$id_anggota";
+			if($id_jenis!=null){
+				$filter.=" and id_jenis_tabungan=$id_jenis and id_anggota=$id_anggota";
 			}
 		}else{
-			if($jenis!=null){
-				$filter=array("id_jenis_tabungan"=>$jenis,"id_anggota"=>$id_anggota);
+			if($id_jenis!=null){
+				$filter=array("id_jenis_tabungan"=>$id_jenis,"id_anggota"=>$id_anggota);
 			}		
 		}
 		
-        $config['base_url'] = site_url()."/ctabungan/detail_anggota/$id_anggota/$jenis" ;
+        $config['base_url'] = site_url()."/ctabungan/detail_anggota/$id_anggota/$id_jenis" ;
         $config['total_rows'] = $this->tabungan->get_count($filter);
         $config['per_page'] = $limit;
 		$config['uri_segment'] = 5;		
@@ -180,19 +193,17 @@ class ctabungan extends Common {
         $this->pagination->initialize($config);
         $paginator=$this->pagination->create_links();
 		
-        if($jenis!=null)
+        if($id_jenis!=null)
         {
-            $result = $this->jenis_tabungan->get_by_id($jenis);
+            $result = $this->jenis_tabungan->get_by_id($id_jenis);
             $jenis = $result;
         }
         else
         {
-            $jdata = array("jenis_tabungan"=>"Total Simpanan");
-            $jenis = (Object) $jdata;
+            $jenis = (object) array("jenis_tabungan"=>"Total Simpanan");
         }
 		
-		$data["total_saldo"] = $this->tabungan->get_saldo_per_anggota($id_jenis,$id_anggota);
-		
+		$data["total_saldo"] = $this->tabungan->get_saldo_per_anggota($id_jenis,$id_anggota);			
 		$data['total_page'] = $paginator;
         $data["detail_transaksi"] = $trans;
 		$data["jenis_tabungan"] = $jenis;

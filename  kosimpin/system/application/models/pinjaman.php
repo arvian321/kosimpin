@@ -201,7 +201,7 @@ class Pinjaman extends Base_Model {
         
         if($rec->num_rows()>0)
         {
-            return $rec->result();
+            return $rec->row();
         }
         return FALSE;
     }

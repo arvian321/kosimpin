@@ -4,10 +4,10 @@ include(APPPATH."views/default/header.php");
 <body>
     <b>Pembayaran Pinjaman : <?php echo $nama_anggota;  ?></b>
     <table>
-	<tr><td>Untuk Pinjaman</td><td>:</td><td><b><?php echo date("d-M-y",strtotime($pinjaman[0]->tgl_transaksi));?></b></td></tr>
-	<tr><td>Jumlah Pinjaman</td><td>:</td><td align='right'><b><?php echo number_format($pinjaman[0]->jumlah_pinjaman,0); ?></b></td></tr>	
-	<tr><td>Jumlah Jasa</td><td>:</td><td align='right'><b><?php echo number_format($pinjaman[0]->jumlah_jasa,0); ?></b></td></tr>	
-	<tr><td>Saldo Hutang</td><td>:</td><td align='right'><b><?php echo number_format($pinjaman[0]->saldo,0); ?></b></td></tr>
+	<tr><td>Untuk Pinjaman</td><td>:</td><td><b><?php echo date("d-M-y",strtotime($pinjaman->tgl_transaksi));?></b></td></tr>
+	<tr><td>Jumlah Pinjaman</td><td>:</td><td align='right'><b><?php echo number_format($pinjaman->jumlah_pinjaman,0); ?></b></td></tr>	
+	<tr><td>Jumlah Jasa</td><td>:</td><td align='right'><b><?php echo number_format($pinjaman->jumlah_jasa,0); ?></b></td></tr>	
+	<tr><td>Saldo Hutang</td><td>:</td><td align='right'><b><?php echo number_format($pinjaman->saldo,0); ?></b></td></tr>
 	</table>
 	<br/>
 	

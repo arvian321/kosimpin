@@ -128,7 +128,7 @@ class Sc_config extends Base_flexmodel {
 		if($rec->num_rows()>0)
 		{
 			$result = $rec->result();
-			$lines = explode(chr(13),$result[0]->config_values);
+			$lines = explode(chr(13),$result->config_values);
 			foreach($lines as $line)
 			{
 				if(strlen($line)>1)
