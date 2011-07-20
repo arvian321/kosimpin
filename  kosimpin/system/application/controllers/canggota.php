@@ -47,7 +47,7 @@ class canggota extends Common {
 			if($jenis_tabungan!=null)
 			{
 				$result = $this->jenis_tabungan->get_by_id($jenis_tabungan);
-				$jenis = $result[0];
+				$jenis = $result;
 			}
 			else
 			{

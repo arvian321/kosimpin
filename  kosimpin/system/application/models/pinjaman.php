@@ -94,7 +94,7 @@ class Pinjaman extends Base_Model {
 			$current = $this->pinjaman->get_by_id($data->id_pinjaman);
 			if($current)
 			{
-				$new_saldo = $current[0]->saldo - $data->jumlah_pembayaran;
+				$new_saldo = $current->saldo - $data->jumlah_pembayaran;
 				$pembayaran_update = array("saldo"=>$new_saldo);
 				
 				//input detail
