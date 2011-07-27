@@ -33,12 +33,15 @@ include(APPPATH."views/default/header.php");
 	<?php
 	  if($data_pinjaman)
 	  {
-		$c=1;
-		foreach($data_pinjaman as $pinjaman)
+
+		if(is_array($data_pinjaman))
 		{
-			$tjasa += $pinjaman->tjasa;
-			$tsaldo += $pinjaman->tsaldo;
-			$tpinjaman += $pinjaman->tpinjaman;
+			$c=1;
+			foreach($data_pinjaman as $pinjaman)
+			{
+				$tjasa += $pinjaman->tjasa;
+				$tsaldo += $pinjaman->tsaldo;
+				$tpinjaman += $pinjaman->tpinjaman;
 	?>
 
 	<tr>
@@ -50,8 +53,24 @@ include(APPPATH."views/default/header.php");
 	</tr>
 	
 	<?php
-		$c++;
-		}		
+			$c++;
+			}
+		}
+
+		if(is_object($data_pinjaman))
+		{
+			$c=1;
+			$pinjaman = $data_pinjaman;
+		?>
+		<tr>
+			<td align="center"><?php echo $c; ?>.</td>
+			<td><a href='<?php echo site_url()?>/canggota/rekap/<?php echo $pinjaman->id_anggota; ?>'><?php echo $pinjaman->nama; ?></a></td>
+			<td align='right'><?php echo number_format($pinjaman->tpinjaman,","); ?></td>		
+			<td align='right'><?php echo number_format($pinjaman->tjasa,","); ?></td>
+			<td align='right'><a href='<?php echo site_url()?>/cpinjaman/detail/<?php echo $pinjaman->id_anggota; ?>'><?php echo number_format($pinjaman->tsaldo,","); ?></a></td>
+		</tr>
+		<?php	
+		}
 	  }
 	?>
 	<tr style="font-weight:bold;background-color:#EEEEEE;">
