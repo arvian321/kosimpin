@@ -5,12 +5,6 @@
  *  Contoh Penggunaan
  * 	
  *  $this->load->model("sc_config");
- *  	
- * 	$this->sc_config->init("mod.movement"); //config name. Init will try to reload config from database.
- * 	$this->sc_config->update_config_item("ProgramName","Seccom"); //will automatically if item not exists
- *	$this->sc_config->update_config_item("ProgramVersion","v.1");
- *	$this->sc_config->save_config(); //save to database
- *
  * 
  * @package		Model
  * @author		Ahmad Satiri
