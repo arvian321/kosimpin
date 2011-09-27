@@ -20,12 +20,37 @@ class Base_model extends Model {
 		$this->limit = 30;
 		$this->use_limit = false;
     }
-	
+		
 	function set_default_order($array)
 	{
 		$this->default_order = $array;
 	}
 
+	function copy($new_name,$force_recreate=false)
+	{
+		if($force_recreate==true)
+		{
+			$sql="drop table if exists $new_name";
+			$this->db->query($sql);
+		}
+		
+		$sql="create table IF NOT EXISTS $new_name select * from ".$this->table_name;
+		$this->db->query($sql);
+	}
+	
+	function copy_structure($new_table_name,$template=null,$force_recreate=false)
+	{
+		if($force_recreate==true)
+		{
+			$sql="drop table if exists $new_name";
+			$this->db->query($sql);
+		}
+		
+		if($template==null)$template=$this->table_name;
+		$sql="CREATE TABLE IF NOT EXISTS $new_table_name LIKE ".$template;
+		$this->db->query($sql);	
+	}
+	
 	/**
 	* will truncate this main table
 	*/
@@ -33,6 +58,38 @@ class Base_model extends Model {
 	{
 		$result = $this->db->query("truncate table ". $this->table_name);
 		return $result;
+	}
+
+	function get_row($sql)
+	{
+		$rec = $this->query($sql);
+		if($rec->num_rows()>0)
+		{
+			return $rec->row();
+		}
+		else
+		{
+			return FALSE;
+		}				
+	}
+	
+	function get_result($sql)
+	{
+		$rec = $this->query($sql);
+		if($rec->num_rows()>0)
+		{
+			return $rec->result();
+		}
+		else
+		{
+			return FALSE;
+		}			
+	}
+	
+	function query($sql)
+	{
+		$rs = $this->db->query($sql);
+		return $rs;
 	}
 	
 	function reset_status_diweb()
@@ -114,13 +171,13 @@ class Base_model extends Model {
 	* Berguna untuk membentuk list seperti combo
 	* $top_list adalah opsi tambahan untuk diatas combo
 	*/
-	function get_list($top_list=null)
+	function get_list($top_list=null,$where=null)
 	{
 		if($this->field_id==null && $this->field_title==null)
 			return FALSE;
 		
 		$this->db->order_by($this->field_title);
-		$all = $this->get_all();
+		$all = $this->get_all(null,true,$where);
 		if($all)
 		{
 			
@@ -155,8 +212,10 @@ class Base_model extends Model {
 		
         $data["tgl_input"] = date("Y-m-d H:i:s");
         isset($_SERVER["HTTP_HOST"])?$data["ip_input"] = $_SERVER["HTTP_HOST"]:$data["ip_input"]="CLI";
-		$data["id_user"] = $this->session->userdata("id_user");
-        @$this->db->insert($this->table_name,$data);
+		
+		if(!array_key_exists("id_user",$data))$data["id_user"] = $this->session->userdata("id_user");
+        
+		@$this->db->insert($this->table_name,$data);
 		@$id = $this->db->insert_id();
 		return $id;
     }
@@ -170,11 +229,18 @@ class Base_model extends Model {
 
     function delete_where($filter)
     {
-        $result = $this->db->delete($this->table_name,$filter);
+		if(is_array($filter)){
+			$result = $this->db->delete($this->table_name,$filter);
+		}
+		else
+		{
+			$this->db->where($filter);
+			$this->db->delete($this->table_name);
+		}
 		return $result;
     }
     
-	function get_all($order_by=null,$use_ref=true)
+	function get_all($order_by=null,$use_ref=true,$where=null)
 	{
         $this->db->select("*")
                  ->from($this->table_name);
@@ -203,6 +269,10 @@ class Base_model extends Model {
 					break;
 				}
 			}
+		}
+		
+		if($where!=null){
+			$this->db->where($where);
 		}
 		
 		if($use_ref){
@@ -304,6 +374,17 @@ class Base_model extends Model {
 		return $result;
     }
 	
+    /**
+     *
+     * @param Object $data
+     * @param array $where
+     */
+    function update_where($data,$where)
+    {
+	    $this->db->where($where);    	
+        $result = $this->db->update($this->table_name,$data);
+		return $result;
+    }	
 	function get_count($filter=null)
 	{
 		$this->db->select("count(*) as 'c'")
