@@ -11,7 +11,7 @@ Selamat datang di <?php echo $this->config->item('nama_koperasi'); ?><br/><br/>
 <form name="form1" method="post" action="<?php echo site_url();?>/main/login">
   <table width="300" border="0">
     <tr>
-      <td width="111">User</td>
+      <td width="111">User/id anggota</td>
       <td width="179"><input name="user" type="text" id="user" maxlength="10" size="12"></td>
     </tr>
     <tr>

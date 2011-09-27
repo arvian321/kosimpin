@@ -4,6 +4,10 @@ include(APPPATH."views/default/header.php");
 <body>
     <b>Pinjaman</b>
 	<br/><br/>
+	<?php
+		if($this->session->userdata("role")==1)
+		{
+	?>
 	Input Pinjaman
 	<?php echo form_open("cpinjaman/index"); ?>
 	<table>
@@ -18,7 +22,9 @@ include(APPPATH."views/default/header.php");
 	<tr><td>&nbsp</td><td><input type='submit' value='Simpan'></td></tr>
 	</table>
 	</form>
-	
+	<?php
+		}
+	?>	
 	<table style='border:solid 1px #EEEEEE;'>
 	<?php
 	  $tsaldo=0;$tpinjaman=0;$tjasa=0;

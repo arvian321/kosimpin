@@ -32,7 +32,13 @@ class ctabungan extends Common {
 	* 3. Wajib
 	*/
 	function form($type=1,$sukses=0)
-	{
+	{	
+		if($this->session->userdata("role")!=1)
+		{
+			$this->no_entry();
+			return false;
+		}
+		
 		$this->load->helper(array('form', 'url','tanggal'));
 		$this->load->library('form_validation');
 		
@@ -166,6 +172,11 @@ class ctabungan extends Common {
 
     function detail_anggota($id_anggota,$id_jenis=null,$offset=null,$field_search=null,$value_search=null)
     {
+		if($this->session->userdata("id_anggota")!=$id_anggota)
+		{
+			$this->no_entry();
+			return false;
+		}
 		
 		$offset = $this->uri->segment(5); 
 		$limit=10;
