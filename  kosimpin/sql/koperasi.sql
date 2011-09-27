@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Waktu pembuatan: 01. Agustus 2011 jam 14:56
+-- Waktu pembuatan: 27. September 2011 jam 12:03
 -- Versi Server: 5.1.30
 -- Versi PHP: 5.2.8
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `anggota` (
 --
 
 INSERT INTO `anggota` (`id`, `nomor_anggota`, `nama`, `tglmasuk`, `alamat`, `telpon`, `email`, `tgl_input`, `ip_input`, `password`) VALUES
-(1, '07030001', 'Ahmad Satiri', '2007-01-31', '-', '-', '-', '2010-09-27 12:36:06', '', '202cb962ac59075b964b07152d234b70'),
+(1, '07030001', 'Ahmad Satiri', '2007-01-31', '-', '-', '-', '2010-09-27 12:36:06', '', '233abaa0948be65922b78494dd374fbd'),
 (2, '07030002', 'Farid Ma''ruf', '2000-09-05', 'telaga Mas', '-', '-', '2010-09-28 15:42:52', '127.0.0.1', '202cb962ac59075b964b07152d234b70');
 
 -- --------------------------------------------------------
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `gledger` (
   `nomor_dokumen` varchar(30) DEFAULT NULL,
   `batch_info` varchar(100) NOT NULL,
   PRIMARY KEY (`id_jurnal`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data untuk tabel `gledger`
@@ -126,7 +126,9 @@ INSERT INTO `gledger` (`id_jurnal`, `nomor_account`, `debit_value`, `kredit_valu
 (29, '005', 0, 15000, '2011-07-20', '2011-07-20 12:32:31', 1, 'localhost', '', '61-20072011-123231'),
 (30, '003', 150000, 0, '2011-07-27', '2011-07-27 17:37:53', 1, 'localhost', '', '73-27072011-173753'),
 (31, '004', 15000, 0, '2011-07-27', '2011-07-27 17:37:53', 1, 'localhost', '', '73-27072011-173753'),
-(32, '001', 0, 150000, '2011-07-27', '2011-07-27 17:37:53', 1, 'localhost', '', '73-27072011-173753');
+(32, '001', 0, 150000, '2011-07-27', '2011-07-27 17:37:53', 1, 'localhost', '', '73-27072011-173753'),
+(33, '001', 25000, 0, '2011-09-23', '2011-09-23 17:52:08', 1, 'localhost', '', '12-23092011-175208'),
+(34, '005', 0, 25000, '2011-09-23', '2011-09-23 17:52:08', 1, 'localhost', '', '12-23092011-175208');
 
 -- --------------------------------------------------------
 
@@ -306,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `tabungan` (
   KEY `id_anggota` (`id_anggota`),
   KEY `id_user` (`id_user`),
   KEY `tgl_transaksi` (`tgl_transaksi`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data untuk tabel `tabungan`
@@ -362,7 +364,8 @@ INSERT INTO `tabungan` (`id`, `id_anggota`, `id_user`, `tgl_transaksi`, `jumlah_
 (47, 1, 1, '2010-10-11', 1250, 0, NULL, 'localhost', '2010-10-11 13:54:36', 1),
 (48, 1, 1, '2010-10-11', 1260, 0, NULL, 'localhost', '2010-10-11 13:55:14', 1),
 (49, 1, 1, '2010-10-11', 1260, 0, NULL, 'localhost', '2010-10-11 13:56:01', 1),
-(50, 1, 1, '2011-07-20', 15000, 0, NULL, 'localhost', '2011-07-20 12:32:31', 1);
+(50, 1, 1, '2011-07-20', 15000, 0, NULL, 'localhost', '2011-07-20 12:32:31', 1),
+(51, 1, 1, '2011-09-23', 25000, 0, NULL, 'localhost', '2011-09-23 17:52:08', 3);
 
 -- --------------------------------------------------------
 
@@ -396,7 +399,7 @@ INSERT INTO `user` (`id`, `user_name`, `password`, `email`, `id_anggota`, `tgl_i
 --
 -- Structure for view `summary_tabungan`
 --
-DROP TABLE IF EXISTS `summary_tabungan`;
+DROP view IF EXISTS `summary_tabungan`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `summary_tabungan` AS select sum(`tabungan`.`jumlah_in`) AS `j_in`,sum(`tabungan`.`jumlah_out`) AS `j_out`,sum((`tabungan`.`jumlah_in` - `tabungan`.`jumlah_out`)) AS `saldo`,`tabungan`.`id_anggota` AS `id_anggota`,`anggota`.`nama` AS `nama`,`tabungan`.`id_jenis_tabungan` AS `id_jenis_tabungan` from ((`tabungan` join `anggota` on((`tabungan`.`id_anggota` = `anggota`.`id`))) join `jenis_tabungan` on((`tabungan`.`id_jenis_tabungan` = `jenis_tabungan`.`id`))) group by `anggota`.`id`,`tabungan`.`id_jenis_tabungan` order by `anggota`.`nama`;
 
@@ -405,6 +408,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 -- Structure for view `summary_tabungan_total`
 --
-DROP TABLE IF EXISTS `summary_tabungan_total`;
+DROP view IF EXISTS `summary_tabungan_total`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `summary_tabungan_total` AS select sum(`tabungan`.`jumlah_in`) AS `j_in`,sum(`tabungan`.`jumlah_out`) AS `j_out`,sum((`tabungan`.`jumlah_in` - `tabungan`.`jumlah_out`)) AS `saldo`,`tabungan`.`id_anggota` AS `id_anggota`,`anggota`.`nama` AS `nama`,`tabungan`.`id_jenis_tabungan` AS `id_jenis_tabungan` from ((`tabungan` join `anggota` on((`tabungan`.`id_anggota` = `anggota`.`id`))) join `jenis_tabungan` on((`tabungan`.`id_jenis_tabungan` = `jenis_tabungan`.`id`))) group by `anggota`.`id` order by `anggota`.`nama`;
