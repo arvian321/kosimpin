@@ -4,7 +4,7 @@ include(APPPATH."views/default/header.php");
 <body>
     <b>Daftar Pinjaman : <?php echo $nama_anggota; ?></b><br/></br>
 Klik Saldo untuk melihat history pembayaran.<br/>
-	<table style='border:solid 1px #EEEEEE;'>
+	<table style='border:solid 1px #EEEEEE;width:300px;'>
 	<?php
 	  $tsaldo=0;$tpinjaman=0;$tjasa=0;
 	?>

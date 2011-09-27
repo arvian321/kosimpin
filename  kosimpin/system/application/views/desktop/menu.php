@@ -8,3 +8,7 @@
 
 <a href="<?php echo site_url();?>/cpengeluaran">Pengeluaran</a><br>
 &nbsp;&nbsp;<a href="<?php echo site_url();?>/cpengeluaran">Input Pengeluaran</a><br><br>
+
+<a href="<?php echo site_url();?>/utility">Utility</a><br>
+&nbsp;&nbsp;<a href="<?php echo site_url();?>/utility">Import Data Anggota</a><br>
+&nbsp;&nbsp;<a href="<?php echo site_url();?>/utility">Import Data User</a><br><br>

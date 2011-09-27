@@ -10,10 +10,8 @@ class main extends Common {
 		$this->load->model("anggota");
 	}
 	
-		
 	function index($failed=0,$versi="m")
 	{
-		
 		$this->_set_view_dir($versi);
 		
 		if($this->session->userdata('logged_in')==true && strlen($this->session->userdata('username'))>0)
@@ -94,7 +92,7 @@ class main extends Common {
 				$data["saldo_wajib"] = $saldo_wajib;
 				$data["saldo_sukarela"] = $saldo_sukarela;
 				$data["saldo_pokok"] = $saldo_pokok;
-				
+				$data["id_anggota"] = $this->session->userdata("id_anggota");
 				$data["saldo_pinjaman"] = $saldo_pinjaman;
 				
 				$this->_load_view('home_anggota',$data);

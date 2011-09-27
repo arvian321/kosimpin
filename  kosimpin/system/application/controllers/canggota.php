@@ -11,14 +11,35 @@ class canggota extends Common {
 		$this->load->model("jenis_tabungan");
 		
 		$this->load->helper(array('form', 'url','tanggal'));
+		$this->load->library("pagination");
 	}
 
 	/**
 	* List Anggota
 	*/
-	function index()
+	function index($offset=null,$field=null,$value=null)
 	{
+		$filter = array();
+		if($field!=null && $value!=null)
+		{
+			$filter = " $field like '%$value%'";
+		}
+		
 		$data = array();
+		$offset = $this->uri->segment(4); 				
+        $config['base_url'] = site_url() . '/canggota/index/';
+        $config['total_rows'] = $this->anggota->get_count();
+        $config['per_page'] = 20;
+		$config['uri_segment']=4;
+		
+        $this->pagination->initialize($config);
+        $paginator=$this->pagination->create_links();
+		
+		$data["offset"] = $offset;
+		$this->anggota->set_default_order(array("nama"=>"asc"));		
+		$data['result'] = $this->anggota->get_paged($config['per_page'],$offset,$filter);
+		$data['total_page'] = $paginator;
+		
 		$this->_load_view('anggota/home',$data);
 	}
 	
