@@ -83,6 +83,12 @@ class Common extends Controller {
 		$this->load->view($this->session->userdata('view_dir')."/$view",$data);
 	}
 	
+	function no_entry()
+	{
+		$data= array();
+		$this->_load_view('noentry',$data);
+	}
+	
 	function redirect()
 	{
 		redirect("main/index/0",null);
