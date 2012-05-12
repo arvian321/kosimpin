@@ -51,7 +51,7 @@ $autoload['libraries'] = array('database', 'xmlrpc','pagination','session','sess
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'file');
+$autoload['helper'] = array('url', 'file','formatnumber');
 
 
 /*
