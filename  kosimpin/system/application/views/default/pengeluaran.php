@@ -37,8 +37,8 @@ include(APPPATH."views/default/header.php");
 
 	<tr>
 		<td align="center"><?php echo $c; ?>.</td>
-		<td align='right'><?php echo number_format($p->sum_jumlah,","); ?></td>		
-		<td align='right'><?php echo number_format($p->sum_jumlah,","); ?></td>				
+		<td align='right'><?php echo format_number($p->sum_jumlah); ?></td>		
+		<td align='right'><?php echo format_number($p->sum_jumlah); ?></td>				
 	</tr>
 	
 	<?php

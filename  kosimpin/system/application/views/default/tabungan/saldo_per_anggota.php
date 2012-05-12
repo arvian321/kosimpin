@@ -28,10 +28,10 @@ include(APPPATH."views/default/header.php");
         <td align="right">
 			<?php if($id_jenis!=0):?>
             <a href='<?php echo site_url();?>/ctabungan/detail_anggota/<?php echo $saldo->id_anggota."/".$id_jenis; ?>'>
-            <?php echo number_format($saldo->saldo,"."); ?>
+            <?php echo format_number($saldo->saldo); ?>
             </a>
 			<?php else: ?>
-			<?php echo number_format($saldo->saldo,"."); ?>	
+			<?php echo format_number($saldo->saldo); ?>	
 			<?php endif ?>
         </td>
         </tr>
@@ -41,7 +41,7 @@ include(APPPATH."views/default/header.php");
   ?>
     <tr style="font-weight:bold;background-color:#EEEEEE;">
         <td></td>
-        <td>Total</td><td align="right"><?php echo number_format($total_saldo,"."); ?></td></tr>
+        <td>Total</td><td align="right"><?php echo format_number($total_saldo); ?></td></tr>
   <?php
   }
 ?>

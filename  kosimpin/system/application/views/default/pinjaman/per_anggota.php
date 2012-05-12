@@ -28,9 +28,9 @@ include(APPPATH."views/default/header.php");
 
 	<tr>
 		<td align="center"><?php echo $c; ?>.</td>
-		<td align='right'><?php echo number_format($rp->tpinjaman,","); ?></td>		
-		<td align='right'><?php echo number_format($rp->tjasa,","); ?></td>
-		<td align='right'><?php echo number_format($rp->tsaldo,","); ?></a></td>
+		<td align='right'><?php echo format_number($rp->tpinjaman); ?></td>		
+		<td align='right'><?php echo format_number($rp->tjasa); ?></td>
+		<td align='right'><?php echo format_number($rp->tsaldo); ?></a></td>
 		<td align='center'><a href='<?php echo site_url()?>/cpinjaman/bayar/<?php echo $rp->id."/".$rp->id_anggota; ?>'>Bayar</a></td>
 	</tr>
 	
@@ -41,9 +41,9 @@ include(APPPATH."views/default/header.php");
 	?>
 	<tr style="font-weight:bold;background-color:#EEEEEE;">
 		<td align='center'></td>		
-		<td align='right'><?php echo number_format($tpinjaman,","); ?></td>
-		<td align='right'><?php echo number_format($tjasa,","); ?></td>
-		<td align='right'><?php echo number_format($tsaldo,","); ?></td>
+		<td align='right'><?php echo format_number($tpinjaman); ?></td>
+		<td align='right'><?php echo format_number($tjasa); ?></td>
+		<td align='right'><?php echo format_number($tsaldo); ?></td>
 		<td align='center'></td>		
 	</tr>	
 	</table>

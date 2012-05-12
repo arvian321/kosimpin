@@ -27,7 +27,7 @@ per anggota.<br><br>
         </td>
         <td align="right">
             <a href='<?php echo site_url();?>/ctabungan/detail/<?php echo $saldo->id_jenis_tabungan; ?>'>
-            <?php echo number_format($saldo->saldo,"."); ?>
+            <?php echo format_number($saldo->saldo); ?>
             </a>
         </td>
         </tr>
@@ -37,7 +37,9 @@ per anggota.<br><br>
   ?>
     <tr style="font-weight:bold;background-color:#EEEEEE;">
         <td></td>
-        <td>Total</td><td align="right"> <a href='<?php echo site_url();?>/ctabungan/detail/'><?php echo number_format($total_saldo,"."); ?></a></td></tr>
+        <td>Total</td><td align="right"> 
+		<a href='<?php echo site_url();?>/ctabungan/detail/'>
+		<?php echo format_number($total_saldo); ?></a></td></tr>
   <?php
   }
 ?>
