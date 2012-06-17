@@ -3,7 +3,7 @@ include(APPPATH."views/default/header.php");
 ?>
 <body>
 <b>Tabungan</b><br><br>
-<?php echo $jenis_tabungan->jenis_tabungan; ?>
+<?php echo $jenis_tabungan; ?>
 <table width="300px">
  <tr style="font-weight:bold;background-color:#EEEEEE;">
      <td>No.</td>
