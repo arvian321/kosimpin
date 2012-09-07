@@ -1,6 +1,6 @@
 <?php
 
-class ctabungan extends Common {
+class ctabungan extends MY_Controller {
 
     function __construct()
     {

@@ -1,6 +1,6 @@
 <?php
 
-class canggota extends Common {
+class canggota extends MY_Controller {
 
 	function __construct()
 	{

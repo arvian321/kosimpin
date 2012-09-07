@@ -1,6 +1,6 @@
 <?php
 
-class main extends Common {
+class main extends MY_Controller {
 
 	function __construct()
 	{

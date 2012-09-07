@@ -1,5 +1,5 @@
 <?php
-include(APPPATH."views/default/header.php");
+include(APPPATH."views/default/header.format_number");
 ?>
 <body>
     <b>Anggota</b><br><br>
@@ -13,12 +13,16 @@ include(APPPATH."views/default/header.php");
 Klik pada jumlah untuk melihat rincian tabungan/pinjaman.
 <br><br>
 <table>
+<<<<<<< .mine
+<tr><td>Saldo Total Simpanan</td><td>:</td><td align="right">&nbsp;<a href='<?php echo site_url();?>/ctabungan/detail_anggota/<?php echo $anggota->id; ?>'><?php echo number_format($tabungan->saldo,","); ?></a></td></tr> 
+<tr><td>Total Pinjaman</td><td>:</td><td align="right">&nbsp;<a href=''><?php echo number_format($pinjaman->tpinjaman,","); ?></a></td></tr>
+<tr><td><B>Total Saldo Pinjaman</b></td><td>:</td><td align="right">&nbsp;<a href='<?php echo site_url(); ?>/cpinjaman/'><?php echo number_format($pinjaman->tsaldo,","); ?></a></td></tr>
 <tr><td>Saldo Total Simpanan</td><td>:</td><td align="right">&nbsp;<a href='<?php echo site_url();?>/ctabungan/detail_anggota/<?php echo $anggota->id; ?>'><?php echo format_number($tabungan->saldo); ?></a></td></tr> 
 <tr><td>Total Pinjaman</td><td>:</td><td align="right">&nbsp;<a href=''><?php echo format_number($pinjaman->tpinjaman); ?></a></td></tr>
 <tr><td><B>Total Saldo Pinjaman</b></td><td>:</td><td align="right">&nbsp;<a href='<?php echo site_url(); ?>/cpinjaman/'><?php echo format_number($pinjaman->tsaldo); ?></a></td></tr>
 </table>
 </body>
 <?php
-include(APPPATH."views/default/footer.php");
+include(APPPATH."views/default/footer.format_number");
 ?>
 </html>

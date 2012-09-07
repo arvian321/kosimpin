@@ -1,5 +1,5 @@
 <?php
-class cpengeluaran extends common
+class cpengeluaran extends MY_Controller
 {
 	function __construct()
 	{
