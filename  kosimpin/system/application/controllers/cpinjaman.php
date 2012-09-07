@@ -1,6 +1,6 @@
 <?php
 
-class cpinjaman extends Common {
+class cpinjaman extends MY_Controller {
 
 	function __construct()
 	{

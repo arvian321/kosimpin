@@ -4,6 +4,8 @@ class MY_Controller extends Controller {
 	function __construct()
 	{
 		parent::Controller();	
+		$this->load->helper("format_number");
+		$this->load->library("session");
 	}
 	
 	function _set_view_dir($versi=null)
